@@ -3,7 +3,7 @@ Rails.application.routes.draw do
      resources :posts, except: [:index]
   end
 
-  resources :user, only: [:new, :create]
+  resources :users, only: [:new, :create]
 
   get 'about' => 'welcome#about'
 
