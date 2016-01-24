@@ -33,3 +33,6 @@ source 'https://rubygems.org'
 
  # Used for encrypting User passwords
  gem 'bcrypt'
+
+ # Used for securely configuring Rails applications: ie. API keys and credentials
+ gem 'figaro', '1.0'
