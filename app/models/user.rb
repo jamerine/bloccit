@@ -14,11 +14,11 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, allow_blank: true
 
   validates :email,
-             presence: true,
-             uniqueness: { case_sensitive: false },
-             length: { minimum: 3, maximum: 100 },
-             format: { with: EMAIL_REGEX }
-
+            presence: true,
+            uniqueness: { case_sensitive: false },
+            length: { minimum: 3, maximum: 100 },
+            format: { with: EMAIL_REGEX }
+  
   has_secure_password
 
   enum role: [:member, :admin]
