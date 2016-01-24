@@ -18,12 +18,17 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false },
             length: { minimum: 3, maximum: 100 },
             format: { with: EMAIL_REGEX }
-  
+
   has_secure_password
 
   enum role: [:member, :admin]
 
   def favorite_for(post)
     favorites.where(post_id: post.id).first
+  end
+
+  def avatar_url(size)
+    gravatar_id = Digest::MD5::hexdigest(self.email).downcase
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
   end
 end
