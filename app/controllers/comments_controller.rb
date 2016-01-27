@@ -10,14 +10,14 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     @new_comment = Comment.new
 
-    if @comment.save
-      flash[:notice] = "Comment saved successfully."
+    if result = @comment.save
+      @message = "Comment saved successfully."
     else
-      flash[:alert] = "Comment failed to save."
+      @message = "Comment failed to save."
     end
 
     respond_to do |format|
-      format.html
+      format.html { result ? flash[:notice] = @message : flash[:alert] = @message }
       format.js
     end
   end
@@ -27,13 +27,13 @@ class CommentsController < ApplicationController
     @comment = @post.comments.find(params[:id])
 
     if @comment.destroy
-      flash[:notice] = "Comment was deleted."
+      @message = "Comment was deleted."
     else
-      flash[:alert] = "Comment couldn't be deleted. Try again."
+      @message = "Comment couldn't be deleted. Try again."
     end
 
     respond_to do |format|
-      format.html
+      format.html { result ? flash[:notice] = @message : flash[:alert] = @message }
       format.js
     end
   end
