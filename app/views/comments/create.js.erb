@@ -1,8 +1,8 @@
 <% if @comment.valid? %>
   $('.flash').prepend("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><%= @message %></div>");
-  $('.js-comments').prepend("<%= escape_javascript(render(@comment)) %>");
+  $('.js-comments').append("<%= escape_javascript(render(@comment)) %>");
   $('.new-comment').html("<%= escape_javascript(render partial: 'comments/form', locals: { post: @post, comment: @new_comment }) %>");
  <% else %>
-   $('.flash').prepend("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&times;</button><%= @message %></div>");
+   $('.flash').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&times;</button><%= @message %></div>");
    $('.new-comment').html("<%= escape_javascript(render partial: 'comments/form', locals: { post: @post, comment: @comment }) %>");
  <% end %>
