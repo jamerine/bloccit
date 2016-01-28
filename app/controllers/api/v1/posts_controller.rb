@@ -17,7 +17,9 @@ class Api::V1::PostsController < Api::V1::BaseController
   def create
     topic = Topic.find(params[:topic_id])
     post = Post.new(post_params)
-    user = current_user
+    user = @current_user
+    post.topic = topic
+    post.user = user
 
     if post.valid?
       post.save!

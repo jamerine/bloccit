@@ -51,8 +51,8 @@ RSpec.describe Api::V1::PostsController, type: :controller do
       my_user.admin!
       controller.request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(my_user.auth_token)
       @new_post = build(:post)
-      # tried the below as well but it was still failing
-      # @new_post = build(:post, user_id: my_user, topic_id: my_topic.id)
+
+      # @new_post = build(:post, user: my_user, topic: my_topic)
     end
 
     describe "PUT update" do
@@ -73,7 +73,7 @@ RSpec.describe Api::V1::PostsController, type: :controller do
     end
 
     describe "POST create" do
-      before { post :create, topic_id: my_topic.id, post: {title: @new_post.title, body: @new_post.body}}
+      before { post :create, topic_id: my_topic.id, post: {title: "Post Title", body: "New Post Body Description"}}
 
       it "returns http success" do
         expect(response).to have_http_status(:success)
@@ -85,8 +85,8 @@ RSpec.describe Api::V1::PostsController, type: :controller do
 
       it "creates a post with the correct attributes" do
         hashed_json = JSON.parse(response.body)
-        expect(hashed_json["title"]).to eq(@new_post.title)
-        expect(hashed_json["body"]).to eq(@new_post.body)
+        expect(hashed_json["title"]).to eq("Post Title")
+        expect(hashed_json["body"]).to eq("New Post Body Description")
       end
     end
 
